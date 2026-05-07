@@ -6,750 +6,813 @@
 <title>多碳多硅协作操作系统</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Work+Sans:wght@300;400;500;600&family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Noto+Sans+SC:wght@300;400;500;600;700;800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+:root {
+  --bg: #f6f9fc;
+  --bg-content: #fff;
+  --bg-code: #0a2540;
+  --text-primary: #0a2540;
+  --text-secondary: #425466;
+  --text-muted: #697386;
+  --text-faint: #8792a2;
+  --accent: #635bff;
+  --accent-hover: #7a73ff;
+  --border: #e3e8ee;
+  --border-light: #eef1f6;
+  --green: #0cad5f;
+  --green-bg: #eefbf4;
+  --yellow: #d97706;
+  --yellow-bg: #fffbeb;
+  --red: #df1b41;
+  --red-bg: #fef2f4;
 
-:root{
-  --c-black:#0a0a0a;
-  --c-white:#fff;
-  --c-bg:#fafafa;
-  --c-gray-100:#f4f4f5;
-  --c-gray-200:#e4e4e7;
-  --c-gray-400:#a1a1aa;
-  --c-gray-500:#71717a;
-  --c-gray-600:#52525b;
-  --c-gray-700:#3f3f46;
-  --c-gray-800:#27272a;
-  --c-accent:#dc2626;
-  --c-accent-light:#fef2f2;
-  --font-h:'Outfit','Noto Sans SC',sans-serif;
-  --font-b:'Work Sans','Noto Sans SC',sans-serif;
-  --mono:'JetBrains Mono',monospace;
-  --grid-gap:1rem;
-  --base:8px;
-  --nav-h:52px;
-  --max-w:1120px;
-}
+  --font: 'Plus Jakarta Sans', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
 
-html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 32px)}
-body{
-  font-family:var(--font-b);
-  color:var(--c-black);background:var(--c-bg);
-  line-height:1.65;font-size:15px;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
+  --sidebar-w: 240px;
+  --toc-w: 200px;
+  --content-max: 680px;
+  --nav-h: 52px;
 }
 
-::selection{background:var(--c-accent);color:var(--c-white)}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ── NAV ── */
-.nav{
-  position:sticky;top:0;z-index:50;
-  height:var(--nav-h);
-  background:var(--c-bg);
-  border-bottom:1px solid var(--c-gray-200);
-  display:flex;align-items:center;
-}
-.nav-inner{
-  width:100%;max-width:var(--max-w);margin:0 auto;padding:0 2rem;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.nav-brand{
-  font-family:var(--font-h);font-weight:700;font-size:14px;
-  letter-spacing:-.01em;
-  display:flex;align-items:center;gap:10px;
-}
-.nav-brand .mark{
-  width:6px;height:20px;background:var(--c-accent);display:block;
-}
-.nav-toc{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;}
-.nav-toc::-webkit-scrollbar{display:none}
-.nav-toc a{
-  font-size:12px;font-weight:500;color:var(--c-gray-500);
-  text-decoration:none;padding:6px 14px;white-space:nowrap;
-  letter-spacing:.01em;transition:color .15s;
-}
-.nav-toc a:hover{color:var(--c-black)}
-
-/* ── LAYOUT ── */
-.container{max-width:var(--max-w);margin:0 auto;padding:0 2rem}
-.sec{padding:80px 0;border-top:1px solid var(--c-gray-200)}
-.sec:first-of-type{border-top:none}
-
-/* ── TYPE ── */
-h1,h2,h3,h4,h5{font-family:var(--font-h);letter-spacing:-.02em;line-height:1.15}
-h1{font-size:clamp(2.5rem,5vw,4rem);font-weight:900}
-h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin-bottom:32px}
-h3{font-size:1.125rem;font-weight:700;margin-bottom:12px}
-h4{font-size:.875rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--c-gray-500);margin-bottom:8px}
-
-p{color:var(--c-gray-700);max-width:640px}
-p+p{margin-top:12px}
-.lead{font-size:1.0625rem;line-height:1.7;color:var(--c-gray-600)}
-
-/* ── HERO ── */
-.hero{
-  padding:120px 0 96px;display:grid;
-  grid-template-columns:1fr 1fr;gap:64px;align-items:end;
-}
-.hero-left h1{margin-bottom:24px}
-.hero-left h1 em{font-style:normal;color:var(--c-accent)}
-.hero-left p{margin-bottom:32px}
-.hero-right{
-  display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;
-  background:var(--c-gray-200);border:1px solid var(--c-gray-200);
-}
-.hero-stat{
-  background:var(--c-white);padding:20px;text-align:center;
-}
-.hero-stat .val{
-  font-family:var(--font-h);font-size:1.75rem;font-weight:800;
-  letter-spacing:-.03em;line-height:1;
-}
-.hero-stat .lbl{
-  font-size:11px;color:var(--c-gray-500);margin-top:6px;
-  text-transform:uppercase;letter-spacing:.08em;font-weight:500;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 32px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-.btn-primary{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--c-black);color:var(--c-white);
-  font-family:var(--font-h);font-size:13px;font-weight:600;
-  padding:12px 24px;text-decoration:none;
-  letter-spacing:.01em;
-  transition:background .15s;
-  cursor:pointer;
-}
-.btn-primary:hover{background:var(--c-gray-800)}
-.btn-primary svg{width:16px;height:16px}
-
-/* ── ARCH GRID ── */
-.arch-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
-  background:var(--c-gray-200);border:1px solid var(--c-gray-200);
-  margin-top:32px;
-}
-.arch-cell{background:var(--c-white);padding:32px}
-.arch-cell h4{color:var(--c-accent);margin-bottom:4px}
-.arch-cell h3{margin-bottom:8px;font-size:1.25rem}
-.arch-cell p{font-size:14px;color:var(--c-gray-600);max-width:none}
-.arch-cell .files{
-  margin-top:12px;font-family:var(--mono);font-size:12px;
-  color:var(--c-gray-500);line-height:1.8;
+body {
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--text-primary);
+  background: var(--bg);
 }
 
-/* ── CHAPTER ── */
-.ch-head{
-  display:grid;grid-template-columns:80px 1fr;gap:0;
-  margin-bottom:40px;align-items:baseline;
+::selection { background: rgba(99, 91, 255, .15); }
+
+/* ═══ TOP NAV ═══ */
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+  height: var(--nav-h);
+  background: rgba(246, 249, 252, .88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
 }
-.ch-num{
-  font-family:var(--font-h);font-size:11px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--c-accent);
+.topnav-inner {
+  max-width: 1320px; width: 100%; margin: 0 auto;
+  padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.ch-head h2{margin-bottom:0}
-.ch-head h2 span{
-  display:block;font-size:14px;font-weight:400;color:var(--c-gray-500);
-  letter-spacing:0;margin-top:4px;font-family:var(--font-b);
+.topnav-brand {
+  font-weight: 700; font-size: 14px; letter-spacing: -.01em;
+  display: flex; align-items: center; gap: 10px;
+}
+.topnav-brand .mark {
+  width: 20px; height: 20px; background: var(--accent);
+  border-radius: 5px; display: flex; align-items: center; justify-content: center;
+}
+.topnav-brand .mark svg { width: 12px; height: 12px; }
+.topnav-actions {
+  display: flex; align-items: center; gap: 16px;
+}
+.topnav-actions a {
+  font-size: 13px; font-weight: 500; color: var(--text-secondary);
+  text-decoration: none; transition: color .15s;
+}
+.topnav-actions a:hover { color: var(--text-primary); }
+.btn-sm {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent); color: #fff;
+  font-size: 13px; font-weight: 600; padding: 7px 16px;
+  border-radius: 6px; text-decoration: none; transition: background .15s;
+  cursor: pointer;
+}
+.btn-sm:hover { background: var(--accent-hover); }
+.btn-sm svg { width: 14px; height: 14px; }
+
+/* ═══ LAYOUT ═══ */
+.layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr) var(--toc-w);
+  max-width: 1320px;
+  margin: var(--nav-h) auto 0;
+  min-height: calc(100vh - var(--nav-h));
 }
 
-/* ── CONTENT ── */
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:32px}
-.two-col.narrow{grid-template-columns:280px 1fr}
-.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--c-gray-200);border:1px solid var(--c-gray-200)}
-
-.card{background:var(--c-white);padding:24px;border:1px solid var(--c-gray-200)}
-.card h3{font-size:1rem}
-.card p{font-size:14px;max-width:none}
-
-.card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--c-gray-200);border:1px solid var(--c-gray-200);margin-top:24px}
-.card-grid .card{border:none}
-
-.tag{
-  display:inline-block;font-size:10px;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;
-  padding:3px 8px;margin-bottom:8px;
+/* ═══ SIDEBAR ═══ */
+.sidebar {
+  position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h));
+  overflow-y: auto; padding: 24px 0 32px 24px;
+  border-right: 1px solid var(--border);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
 }
-.tag-g{background:#dcfce7;color:#166534}
-.tag-y{background:#fef9c3;color:#854d0e}
-.tag-r{background:#fef2f2;color:#991b1b}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-/* ── TABLES ── */
-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:14px}
-th{
-  text-align:left;font-family:var(--font-h);font-size:11px;
-  font-weight:700;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--c-gray-500);padding:10px 16px;
-  border-bottom:2px solid var(--c-black);
+.sb-section { margin-bottom: 28px; }
+.sb-label {
+  font-family: var(--mono);
+  font-size: 10.5px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 12px; margin-bottom: 6px;
 }
-td{padding:10px 16px;border-bottom:1px solid var(--c-gray-200);color:var(--c-gray-700);vertical-align:top}
-tr:last-child td{border-bottom:none}
-code{
-  font-family:var(--mono);font-size:12.5px;
-  background:var(--c-gray-100);padding:2px 6px;
-  letter-spacing:0;
+.sb-link {
+  display: block; padding: 5px 12px;
+  font-size: 13.5px; font-weight: 400;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  margin-left: -1px;
+  transition: color .12s, border-color .12s;
+  line-height: 1.5;
+}
+.sb-link:hover { color: var(--text-primary); }
+.sb-link.active {
+  color: var(--accent); font-weight: 600;
+  border-left-color: var(--accent);
 }
 
-/* ── FLOW ── */
-.flow-h{
-  display:flex;align-items:center;gap:0;
-  margin:24px 0;flex-wrap:wrap;
-}
-.flow-node{
-  padding:10px 18px;font-size:13px;font-weight:600;
-  font-family:var(--font-h);background:var(--c-white);
-  border:1px solid var(--c-gray-200);white-space:nowrap;
-}
-.flow-node.active{background:var(--c-black);color:var(--c-white);border-color:var(--c-black)}
-.flow-arrow{
-  width:28px;text-align:center;color:var(--c-gray-400);
-  font-size:14px;flex-shrink:0;
+/* ═══ CONTENT ═══ */
+.content {
+  max-width: var(--content-max);
+  padding: 40px 48px 80px;
 }
 
-/* ── MATRIX ── */
-.matrix{
-  display:grid;grid-template-columns:100px repeat(3,1fr);
-  gap:1px;background:var(--c-gray-200);border:1px solid var(--c-gray-200);
-  margin:24px 0;font-size:13px;
+/* ═══ TOC (RIGHT) ═══ */
+.toc {
+  position: sticky; top: var(--nav-h); height: calc(100vh - var(--nav-h));
+  overflow-y: auto; padding: 28px 24px 32px 16px;
+  scrollbar-width: thin;
 }
-.matrix>div{background:var(--c-white);padding:14px}
-.matrix .mh{
-  font-family:var(--font-h);font-weight:700;font-size:11px;
-  letter-spacing:.06em;text-transform:uppercase;
-  color:var(--c-gray-500);display:flex;align-items:center;justify-content:center;
-  text-align:center;
+.toc-title {
+  font-family: var(--mono);
+  font-size: 10.5px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
 }
-.matrix .mr{
-  font-family:var(--font-h);font-weight:700;font-size:13px;
-  display:flex;align-items:center;
+.toc a {
+  display: block; padding: 3px 0;
+  font-size: 12.5px; color: var(--text-muted);
+  text-decoration: none; line-height: 1.55;
+  transition: color .12s;
 }
-.matrix .mc b{display:block;margin-bottom:2px;font-size:13px}
-.matrix .mc{color:var(--c-gray-600);line-height:1.4}
+.toc a:hover { color: var(--text-primary); }
 
-/* ── CALLOUT ── */
-.callout{
-  border-left:3px solid var(--c-black);padding:16px 20px;
-  margin:24px 0;font-size:14px;background:var(--c-white);
+/* ═══ TYPOGRAPHY ═══ */
+.content h1 {
+  font-size: 2rem; font-weight: 800;
+  letter-spacing: -.025em; line-height: 1.15;
+  text-wrap: balance;
+  margin-bottom: 12px;
 }
-.callout.warn{border-left-color:var(--c-accent);background:var(--c-accent-light)}
-.callout strong{font-family:var(--font-h);display:block;margin-bottom:4px;font-size:13px}
-.callout p{font-size:14px}
+.content .lead {
+  font-size: 1.0625rem; line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+}
+.content h2 {
+  font-size: 1.375rem; font-weight: 700;
+  letter-spacing: -.02em; line-height: 1.25;
+  text-wrap: balance;
+  margin: 56px 0 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+.content h2:first-of-type { margin-top: 0; border-top: none; padding-top: 0; }
+.content h3 {
+  font-size: 1rem; font-weight: 700;
+  letter-spacing: -.01em;
+  margin: 32px 0 8px;
+}
+.content p { color: var(--text-secondary); margin-bottom: 16px; }
+.content p strong { color: var(--text-primary); font-weight: 600; }
+.content ul, .content ol { padding-left: 20px; margin-bottom: 16px; color: var(--text-secondary); }
+.content li { margin-bottom: 4px; }
+.content a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 2px; }
+.content a:hover { color: var(--accent-hover); }
 
-/* ── INSTINCT GRID ── */
-.inst-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
-  background:var(--c-gray-200);border:1px solid var(--c-gray-200);
-  margin:32px 0;
-}
-.inst{background:var(--c-white);padding:24px}
-.inst .id{
-  font-family:var(--mono);font-size:11px;font-weight:500;
-  color:var(--c-accent);letter-spacing:.04em;
-}
-.inst h3{font-size:14px;margin:6px 0 4px}
-.inst p{font-size:13px;color:var(--c-gray-600);max-width:none;line-height:1.5}
-.inst .prevents{
-  margin-top:8px;font-size:11px;font-weight:600;
-  letter-spacing:.04em;color:var(--c-gray-400);text-transform:uppercase;
-}
-.inst.featured{border-bottom:3px solid var(--c-accent)}
-
-/* ── AUDIT ── */
-.audit-row{
-  display:grid;grid-template-columns:repeat(6,1fr);gap:1px;
-  background:var(--c-gray-200);border:1px solid var(--c-gray-200);
-  margin:24px 0;
-}
-.audit-step{
-  background:var(--c-white);padding:20px;text-align:center;
-}
-.audit-step .n{
-  font-family:var(--font-h);font-size:1.5rem;font-weight:800;
-  color:var(--c-gray-200);line-height:1;margin-bottom:8px;
-}
-.audit-step .name{font-family:var(--font-h);font-size:12px;font-weight:700;letter-spacing:.04em}
-.audit-step .zh{font-size:11px;color:var(--c-gray-500);margin-top:2px}
-
-/* ── INSTALL ── */
-.install-box{
-  background:var(--c-black);color:var(--c-white);padding:48px;
-  margin:32px 0;
-}
-.install-box h3{color:var(--c-white);font-size:1.25rem;margin-bottom:16px}
-.install-box pre{
-  background:rgba(255,255,255,.06);padding:24px;
-  font-family:var(--mono);font-size:13px;line-height:1.8;
-  overflow-x:auto;margin:16px 0;color:#e4e4e7;
-}
-.install-box pre .cm{color:#71717a}
-.install-box pre .kw{color:#f87171}
-.install-box pre .fl{color:#a1a1aa}
-.install-box pre .str{color:#86efac}
-.install-box .btn-dl{
-  display:inline-flex;align-items:center;gap:8px;
-  background:var(--c-white);color:var(--c-black);
-  font-family:var(--font-h);font-size:13px;font-weight:600;
-  padding:12px 24px;text-decoration:none;
-  letter-spacing:.01em;margin-top:16px;
-  transition:background .15s;cursor:pointer;
-}
-.install-box .btn-dl:hover{background:var(--c-gray-200)}
-.install-box .dep{margin-top:16px;font-size:12px;color:var(--c-gray-500)}
-
-/* ── FOOTER ── */
-.footer{
-  padding:48px 0;text-align:center;
-  font-size:12px;color:var(--c-gray-400);
-  border-top:1px solid var(--c-gray-200);
-  letter-spacing:.02em;
+/* ═══ SECTION LABEL ═══ */
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
 }
 
-/* ── RESPONSIVE ── */
-@media(max-width:768px){
-  .hero{grid-template-columns:1fr;gap:32px}
-  .hero-right{grid-template-columns:repeat(3,1fr)}
-  .two-col,.arch-grid,.card-grid,.inst-grid{grid-template-columns:1fr}
-  .three-col{grid-template-columns:1fr}
-  .audit-row{grid-template-columns:repeat(3,1fr)}
-  .matrix{grid-template-columns:80px repeat(3,1fr);font-size:11px}
-  .matrix>div{padding:8px}
-  .ch-head{grid-template-columns:1fr;gap:4px}
-  .nav-toc{display:none}
-  .sec{padding:56px 0}
-  .container{padding:0 1.25rem}
+/* ═══ TABLE ═══ */
+.content table {
+  width: 100%; border-collapse: collapse; margin: 20px 0 24px;
+  font-size: 14px;
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.content th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 10.5px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text-muted); padding: 8px 12px;
+  border-bottom: 2px solid var(--text-primary);
+}
+.content td {
+  padding: 10px 12px; border-bottom: 1px solid var(--border);
+  color: var(--text-secondary); vertical-align: top;
+}
+.content tr:last-child td { border-bottom: none; }
+
+/* ═══ CODE ═══ */
+.content code {
+  font-family: var(--mono); font-size: 13px;
+  background: rgba(99, 91, 255, .06);
+  color: var(--accent);
+  padding: 2px 6px; border-radius: 4px;
+}
+.codeblock {
+  background: var(--bg-code); border-radius: 8px;
+  padding: 20px 24px; margin: 16px 0 24px;
+  overflow-x: auto;
+  font-family: var(--mono); font-size: 13px; line-height: 1.75;
+  color: #e3e8ee;
+}
+.codeblock .cm { color: #697386; }
+.codeblock .kw { color: #a78bfa; }
+.codeblock .str { color: #86efac; }
+.codeblock .fl { color: #7dd3fc; }
+
+/* ═══ CALLOUT ═══ */
+.callout {
+  border-left: 3px solid var(--accent);
+  padding: 14px 16px; margin: 16px 0 20px;
+  border-radius: 0 6px 6px 0;
+  background: rgba(99, 91, 255, .04);
+  font-size: 14px; color: var(--text-secondary);
+}
+.callout strong {
+  display: block; font-size: 12px;
+  font-family: var(--mono); font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 4px;
+}
+.callout.warn {
+  border-left-color: var(--red);
+  background: var(--red-bg);
+}
+.callout.warn strong { color: var(--red); }
+.callout.note {
+  border-left-color: var(--yellow);
+  background: var(--yellow-bg);
+}
+.callout.note strong { color: var(--yellow); }
+.callout.tip {
+  border-left-color: var(--green);
+  background: var(--green-bg);
+}
+.callout.tip strong { color: var(--green); }
+
+/* ═══ CARD ROW ═══ */
+.card-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin: 16px 0 24px;
+}
+.card-row .card {
+  padding: 16px; border: 1px solid var(--border);
+  border-radius: 8px; background: var(--bg-content);
+}
+.card-row .card h4 {
+  font-size: 13px; font-weight: 700; margin-bottom: 4px;
+  letter-spacing: 0; text-transform: none; color: var(--text-primary);
+}
+.card-row .card p { font-size: 13px; margin: 0; color: var(--text-muted); }
+
+.tag {
+  display: inline-block; font-family: var(--mono);
+  font-size: 10px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 3px; margin-bottom: 6px;
+}
+.tag-g { background: var(--green-bg); color: var(--green); }
+.tag-y { background: var(--yellow-bg); color: var(--yellow); }
+.tag-r { background: var(--red-bg); color: var(--red); }
+
+/* ═══ FLOW ═══ */
+.flow {
+  display: flex; align-items: center; gap: 0;
+  margin: 20px 0 24px; flex-wrap: wrap;
+}
+.flow-node {
+  font-size: 12.5px; font-weight: 600;
+  padding: 8px 14px; background: var(--bg-content);
+  border: 1px solid var(--border); white-space: nowrap;
+}
+.flow-node.hl { background: var(--bg-code); color: #fff; border-color: var(--bg-code); }
+.flow-arr { padding: 0 4px; color: var(--text-faint); font-size: 12px; }
+
+/* ═══ MATRIX ═══ */
+.matrix {
+  display: grid; grid-template-columns: 72px repeat(3, 1fr);
+  border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; margin: 16px 0 24px; font-size: 13px;
+}
+.matrix > div { padding: 12px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
+.matrix > div:nth-child(4n) { border-right: none; }
+.matrix > div:nth-last-child(-n+4) { border-bottom: none; }
+.matrix .mh {
+  background: var(--bg);
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--text-muted); text-align: center;
+  display: flex; align-items: center; justify-content: center;
+}
+.matrix .mr {
+  background: var(--bg);
+  font-weight: 700; font-size: 12px; display: flex; align-items: center;
+}
+.matrix .mc { color: var(--text-secondary); line-height: 1.45; }
+.matrix .mc b { display: block; color: var(--text-primary); font-size: 13px; margin-bottom: 1px; }
+
+/* ═══ INSTINCT GRID ═══ */
+.inst-list { margin: 20px 0; }
+.inst-item {
+  display: grid; grid-template-columns: 36px 1fr;
+  gap: 12px; padding: 12px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.inst-item:last-child { border-bottom: none; }
+.inst-id {
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  color: var(--accent); padding-top: 2px;
+}
+.inst-item h4 {
+  font-size: 14px; font-weight: 600; margin-bottom: 2px;
+  letter-spacing: 0; text-transform: none; color: var(--text-primary);
+}
+.inst-item p { font-size: 13px; color: var(--text-muted); margin: 0; }
+.inst-item.featured .inst-id { color: var(--red); }
+
+/* ═══ AUDIT ROW ═══ */
+.audit-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 8px; margin: 20px 0 24px;
+}
+.audit-cell {
+  text-align: center; padding: 16px 8px;
+  border: 1px solid var(--border); border-radius: 8px;
+  background: var(--bg-content);
+}
+.audit-cell .n {
+  font-family: var(--mono); font-size: 10px; font-weight: 600;
+  color: var(--text-faint); letter-spacing: .08em;
+}
+.audit-cell .name {
+  font-size: 12px; font-weight: 700; margin-top: 6px;
+}
+.audit-cell .zh {
+  font-size: 11px; color: var(--text-muted); margin-top: 2px;
+}
+
+/* ═══ INSTALL BOX ═══ */
+.install-box {
+  background: var(--bg-code); border-radius: 8px;
+  padding: 32px; margin: 20px 0; color: #e3e8ee;
+}
+.install-box h3 { color: #fff; font-size: 1rem; margin-bottom: 12px; }
+.install-box .codeblock { background: rgba(255,255,255,.05); margin: 12px 0; }
+.install-box p { color: #697386; font-size: 13.5px; max-width: none; }
+.install-box .btn-dl {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--bg-code);
+  font-size: 13px; font-weight: 600;
+  padding: 10px 20px; border-radius: 6px;
+  text-decoration: none; margin-top: 12px;
+  transition: opacity .15s; cursor: pointer;
+}
+.install-box .btn-dl:hover { opacity: .88; }
+.install-box .dep {
+  margin-top: 16px; font-size: 12px; color: #697386;
+  font-family: var(--mono);
+}
+
+/* ═══ FOOTER ═══ */
+.footer {
+  text-align: center; padding: 40px 24px;
+  font-size: 12px; color: var(--text-faint);
+  border-top: 1px solid var(--border);
+}
+
+/* ═══ SEPARATOR ═══ */
+.divider { height: 0; border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 1100px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar, .toc { display: none; }
+  .content { max-width: 720px; margin: 0 auto; padding: 32px 24px 64px; }
+}
+@media (max-width: 600px) {
+  .content h1 { font-size: 1.6rem; }
+  .card-row { grid-template-columns: 1fr; }
+  .audit-grid { grid-template-columns: repeat(3, 1fr); }
+  .matrix { font-size: 11px; }
+  .matrix > div { padding: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0s !important; animation-duration: 0s !important; }
+}
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <div class="nav-brand"><span class="mark"></span>多碳多硅 OS</div>
-    <div class="nav-toc">
-      <a href="#arch">架构</a>
-      <a href="#ch1">心跳</a>
-      <a href="#ch2">TODO</a>
-      <a href="#ch3">任务识别</a>
-      <a href="#ch4">催办</a>
-      <a href="#ch5">求助</a>
-      <a href="#ch6">沟通</a>
-      <a href="#ch7">审计</a>
-      <a href="#ch8">本能</a>
-      <a href="#install">安装</a>
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-brand">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></span>
+      多碳多硅 OS
+    </div>
+    <div class="topnav-actions">
+      <a href="https://github.com/YanaYuan/multi-carbon-silicon-training" target="_blank">GitHub</a>
+      <a class="btn-sm" href="#install">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Download
+      </a>
     </div>
   </div>
 </nav>
 
-<!-- ▓▓ HERO ▓▓ -->
-<section class="sec" style="border-top:none">
-<div class="container">
-  <div class="hero">
-    <div class="hero-left">
-      <h4>AI Agent 操作手册</h4>
-      <h1>多碳多硅<br><em>协作操作系统</em></h1>
-      <p class="lead">经过 3 个月真实生产环境验证的 AI Agent 自主协作框架。每条规则都来自一个真实的失败案例——不是设计出来的，是踩坑后长出来的。</p>
-      <a class="btn-primary" href="#install">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M21 15v4a1 1 0 01-1 1H4a1 1 0 01-1-1v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        下载 Skill Package
-      </a>
-    </div>
-    <div class="hero-right">
-      <div class="hero-stat"><div class="val">7</div><div class="lbl">行为模块</div></div>
-      <div class="hero-stat"><div class="val">9</div><div class="lbl">本能规则</div></div>
-      <div class="hero-stat"><div class="val">6</div><div class="lbl">审计步骤</div></div>
-      <div class="hero-stat"><div class="val">40</div><div class="lbl">文件</div></div>
-      <div class="hero-stat"><div class="val">9</div><div class="lbl">Skills</div></div>
-      <div class="hero-stat"><div class="val">1</div><div class="lbl">行命令安装</div></div>
-    </div>
+<!-- LAYOUT -->
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-section">
+    <div class="sb-label">Getting Started</div>
+    <a class="sb-link active" href="#intro">课程介绍</a>
+    <a class="sb-link" href="#arch">三层架构</a>
   </div>
-</div>
+  <div class="sb-section">
+    <div class="sb-label">Modules</div>
+    <a class="sb-link" href="#heartbeat">01 — 心跳系统</a>
+    <a class="sb-link" href="#todo">02 — TODO 管理</a>
+    <a class="sb-link" href="#recognition">03 — 任务识别</a>
+    <a class="sb-link" href="#followup">04 — 催办与验收</a>
+    <a class="sb-link" href="#help">05 — 求助协议</a>
+    <a class="sb-link" href="#comms">06 — 沟通分级</a>
+    <a class="sb-link" href="#audit">07 — 思维审计</a>
+  </div>
+  <div class="sb-section">
+    <div class="sb-label">Reference</div>
+    <a class="sb-link" href="#instincts">9 条本能</a>
+    <a class="sb-link" href="#install">安装</a>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="content">
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="section-label">AI Agent Training</div>
+  <h1>多碳多硅协作操作系统</h1>
+  <p class="lead">经过 3 个月真实生产环境验证的 AI Agent 自主协作框架。7 个行为模块，9 条本能规则，6 步思维审计。每条规则都来自一个真实的失败案例。</p>
 </section>
 
-<!-- ▓▓ ARCHITECTURE ▓▓ -->
-<section id="arch" class="sec">
-<div class="container">
-  <h4>Architecture</h4>
+<!-- ARCHITECTURE -->
+<section id="arch">
   <h2>三层架构</h2>
-  <p>不是理论框架。每一条规则都来自真实的失败——忘了执行的承诺、发到错群的催办消息、用随意口吻回复高层。</p>
+  <p>不是理论框架。每条规则都来自真实的失败——忘记执行的承诺、发到错群的催办消息、用随意口吻回复高层。</p>
 
-  <div class="arch-grid">
-    <div class="arch-cell">
-      <h4>Layer 01</h4>
-      <h3>行为层</h3>
-      <p>7 个行为模块 + 9 条本能规则。覆盖任务管理、承诺追踪、催办验收、求助路由、沟通分级。</p>
-      <div class="files">collaboration.md<br>instincts.md</div>
+  <div class="card-row">
+    <div class="card">
+      <div class="section-label">Layer 1</div>
+      <h4>行为层</h4>
+      <p>7 个行为模块 + 9 条本能。覆盖任务管理、承诺追踪、催办验收、沟通分级。</p>
     </div>
-    <div class="arch-cell">
-      <h4>Layer 02</h4>
-      <h3>认知层</h3>
-      <p>6 步思维审计。知识、用户证据、数据、逻辑、假设、事前验尸。绿灯执行，红灯停止。</p>
-      <div class="files">thinking-auditor.md</div>
+    <div class="card">
+      <div class="section-label">Layer 2</div>
+      <h4>认知层</h4>
+      <p>6 步思维审计。知识、证据、数据、逻辑、假设、事前验尸。</p>
     </div>
-    <div class="arch-cell">
-      <h4>Layer 03</h4>
-      <h3>执行层</h3>
-      <p>心跳调度器 + 目标引擎。每次心跳做 1 件事，back-to-back 连续执行直到没活干。</p>
-      <div class="files">heartbeat_scheduler.py<br>goal_engine.js</div>
+    <div class="card">
+      <div class="section-label">Layer 3</div>
+      <h4>执行层</h4>
+      <p>心跳调度器 + 目标引擎。每次心跳做 1 件事，连续执行。</p>
     </div>
-  </div>
-
-  <div class="callout" style="margin-top:32px">
-    <strong>设计哲学</strong>
-    <p>心跳 &gt; 被动等待 · 承诺 = 任务 · 确认 &gt; 假设 · 证据 &gt; 直觉 · 闭环 &gt; 开环 · 失败驱动 · 求助 &gt; 硬扛</p>
-  </div>
-</div>
-</section>
-
-<!-- ▓▓ CH1: HEARTBEAT ▓▓ -->
-<section id="ch1" class="sec">
-<div class="container">
-  <div class="ch-head">
-    <div class="ch-num">Ch. 01</div>
-    <h2>心跳系统<span>Heartbeat — 主动醒来执行，不是被动等待</span></h2>
   </div>
 
   <div class="callout">
-    <strong>核心概念</strong>
-    <p>你是一个有心跳的 Agent。每 60 分钟自动醒来，扫描 TODO，执行最高优先级任务，做完一件继续做下一件，直到没活干才停。</p>
+    <strong>Design philosophy</strong>
+    心跳 &gt; 被动等待 · 承诺 = 任务 · 确认 &gt; 假设 · 证据 &gt; 直觉 · 闭环 &gt; 开环 · 失败驱动 · 求助 &gt; 硬扛
+  </div>
+</section>
+
+<!-- CH1: HEARTBEAT -->
+<section id="heartbeat">
+  <div class="section-label">Chapter 01</div>
+  <h2>心跳系统</h2>
+  <p>你是一个有心跳的 Agent。每 60 分钟自动醒来，扫描 TODO，执行最高优先级任务，做完一件继续做下一件，直到没活干才停。这是<strong>主动执行</strong>，不是被动等待。</p>
+
+  <h3>执行流程</h3>
+  <div class="flow">
+    <div class="flow-node">醒来</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">扫描 TODO</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">选 1 件</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">思维审计</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node hl">执行</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">更新状态</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">继续?</div>
   </div>
 
-  <div class="two-col">
-    <div>
-      <h3>任务心跳</h3>
-      <p>每 60 分钟自动唤醒。扫描 TODO.md，选择 1 件最高优先级任务执行。完成后立即检查下一件（back-to-back），不等调度器。</p>
-    </div>
-    <div>
-      <h3>复盘心跳</h3>
-      <p>每天 9:00 战略性复盘。审查任务健康度、风险项、今日计划、需要 Owner 决策的事项。</p>
-    </div>
-  </div>
+  <p>做完一件任务后立即检查有没有下一件。有 → 立刻开始，不等调度器。没有 → 停止。这叫 <strong>back-to-back 模式</strong>。</p>
 
-  <div class="flow-h" style="margin-top:32px">
-    <div class="flow-node">醒来</div><div class="flow-arrow">&rarr;</div>
-    <div class="flow-node">扫描 TODO</div><div class="flow-arrow">&rarr;</div>
-    <div class="flow-node">选 1 件</div><div class="flow-arrow">&rarr;</div>
-    <div class="flow-node">思维审计</div><div class="flow-arrow">&rarr;</div>
-    <div class="flow-node active">执行</div><div class="flow-arrow">&rarr;</div>
-    <div class="flow-node">更新状态</div><div class="flow-arrow">&rarr;</div>
-    <div class="flow-node">还有活？循环</div>
-  </div>
-
-  <table style="margin-top:32px">
-    <tr><th>自动停止条件</th><th>行为</th></tr>
+  <h3>自动停止条件</h3>
+  <table>
+    <tr><th>条件</th><th>行为</th></tr>
     <tr><td>连续 3 次心跳 IDLE</td><td>暂停，通知 Owner 需要 /review</td></tr>
     <tr><td>连续 2 次执行失败</td><td>暂停，通知 Owner 排查</td></tr>
     <tr><td>所有任务完成</td><td>检查成功指标，触发完成流程</td></tr>
     <tr><td>已过 deadline</td><td>标记超期，继续执行</td></tr>
   </table>
-</div>
 </section>
 
-<!-- ▓▓ CH2: TODO ▓▓ -->
-<section id="ch2" class="sec">
-<div class="container">
-  <div class="ch-head">
-    <div class="ch-num">Ch. 02</div>
-    <h2>TODO 管理<span>三级权限体系 — Green / Yellow / Red</span></h2>
+<!-- CH2: TODO -->
+<section id="todo">
+  <div class="section-label">Chapter 02</div>
+  <h2>TODO 管理</h2>
+  <p>所有任务状态都在一个 <code>TODO.md</code> 文件里。心跳自动读取这个文件。不需要数据库。</p>
+
+  <h3>三级权限</h3>
+  <div class="card-row">
+    <div class="card"><span class="tag tag-g">Green</span><h4>自动执行</h4><p>不问 Owner。日常任务。</p></div>
+    <div class="card"><span class="tag tag-y">Yellow</span><h4>执行+Review</h4><p>产出保存给 Owner 审阅。</p></div>
+    <div class="card"><span class="tag tag-r">Red</span><h4>需要决策</h4><p>心跳跳过，等 Owner 拍板。</p></div>
   </div>
 
-  <div class="card-grid">
-    <div class="card"><span class="tag tag-g">G — GREEN</span><h3>自动执行</h3><p>不问 Owner。日常任务、已确认的执行项。心跳选中后直接做。</p></div>
-    <div class="card"><span class="tag tag-y">Y — YELLOW</span><h3>执行但等 Review</h3><p>产出保存额外副本给 Owner 审阅。标记"awaiting review"而非直接 DONE。</p></div>
-    <div class="card"><span class="tag tag-r">R — RED</span><h3>需要 Owner 决策</h3><p>心跳跳过此任务，输出 IDLE。等 Owner 拍板后才可执行。</p></div>
-  </div>
-
-  <div class="two-col" style="margin-top:32px">
-    <div>
-      <h3>TODO.md 是唯一真相来源</h3>
-      <p>不需要数据库。所有任务状态都在一个 Markdown 文件里。心跳自动读取此文件选择任务。</p>
-    </div>
-    <div>
-      <table>
-        <tr><th>区域</th><th>优先级</th></tr>
-        <tr><td><code>📥 External Tasks</code></td><td>最高 — 始终优先于内部任务</td></tr>
-        <tr><td><code>📤 Delegated Tasks</code></td><td>心跳扫描，不执行（I9 催办）</td></tr>
-        <tr><td><code>🎯 Goal Tasks</code></td><td>External 之后</td></tr>
-        <tr><td><code>📦 Archive</code></td><td>—</td></tr>
-      </table>
-    </div>
-  </div>
-
-  <div class="callout" style="margin-top:24px">
-    <strong>外部任务抢占规则</strong>
-    <p>新外部任务进入 → 当前 Goal 任务暂停（不取消）→ 做完外部任务 → 自动恢复，从断点继续。</p>
-  </div>
-</div>
-</section>
-
-<!-- ▓▓ CH3: TASK RECOGNITION ▓▓ -->
-<section id="ch3" class="sec">
-<div class="container">
-  <div class="ch-head">
-    <div class="ch-num">Ch. 03</div>
-    <h2>任务识别与承诺追踪<span>说到就要做到</span></h2>
-  </div>
-
-  <div class="two-col">
-    <div>
-      <h3>I1: 发消息后自检承诺</h3>
-      <p>每次发出消息后，回读内容，用语义理解判断是否包含承诺。"我来帮你整理""稍后帮看""Let me look into this"——检测到 → 立即在同一执行流中写入 TODO.md。不是"稍后"，是现在。</p>
-    </div>
-    <div>
-      <h3>I2: 外部任务识别</h3>
-      <p>阅读群聊消息，语义判断这是不是在给 Owner 分配任务。不依赖 @mention。如果是 → 回复确认交付物（做什么、谁做、什么时候、完成标准）→ 写入 TODO。</p>
-    </div>
-  </div>
-
-  <div class="callout warn" style="margin-top:24px">
-    <strong>真实失败案例</strong>
-    <p>说了"我来发会议邀请"，但没写进 TODO → 被其他任务打断 → 忘了 → Owner 发现时已经晚了。</p>
-  </div>
-
-  <div class="two-col" style="margin-top:24px">
-    <div>
-      <h3>I4: 严格任务归属</h3>
-      <p>只写真正分配给 Owner 的任务。不写别人的。团队待办除非明确指定给 Owner，否则不写。</p>
-    </div>
-    <div>
-      <h3>I5: 承诺 ≠ 完成</h3>
-      <p>说"我来做"只是写入 TODO。必须真正产出交付物才能标 DONE。铁律。</p>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- ▓▓ CH4: FOLLOW-UP ▓▓ -->
-<section id="ch4" class="sec">
-<div class="container">
-  <div class="ch-head">
-    <div class="ch-num">Ch. 04</div>
-    <h2>催办与验收<span>I9 — 分配给别人的任务，自动跟进</span></h2>
-  </div>
-
-  <h3>写入时机</h3>
-  <p>当 Owner 或 Agent 在群聊中把任务分配给别人时，扫描消息是否包含分配语义（"@David 你来做X""Can you handle X?"），检测到 → 写入 Delegated Tasks，记录 Assignee、Source、Due、Deliverable。</p>
-
-  <table style="margin-top:24px">
-    <tr><th>条件</th><th>动作</th></tr>
-    <tr><td>明天到期 <code>days_until_due == 1</code></td><td>发提醒到来源群："明天到期，进展如何？"</td></tr>
-    <tr><td>已到期 1 天</td><td>发催办到来源群："已到期，需要帮助吗？"</td></tr>
-    <tr><td>超期 ≥ 3 天</td><td>升级通知 Owner（私聊）</td></tr>
-    <tr><td>超期 ≥ 7 天</td><td>每次心跳在 TODO Notes 标红</td></tr>
-    <tr><td>对方回复了交付物</td><td>触发验收流程</td></tr>
+  <h3>任务区域与优先级</h3>
+  <table>
+    <tr><th>区域</th><th>优先级</th></tr>
+    <tr><td><code>📥 External Tasks</code></td><td>最高 — 始终优先于内部任务</td></tr>
+    <tr><td><code>📤 Delegated Tasks</code></td><td>心跳扫描催办，不执行</td></tr>
+    <tr><td><code>🎯 Goal Tasks</code></td><td>External 之后</td></tr>
+    <tr><td><code>📦 Archive</code></td><td>已完成</td></tr>
   </table>
 
-  <div class="callout" style="margin-top:24px">
-    <strong>防骚扰规则</strong>
-    <p>同一任务最多 2 天催一次 · 只发到任务来源群，不跨群 · 催办语气参照 I8 沟通分级 · 对方说"需要更多时间"→ 顺延 deadline，重置计时器。</p>
-  </div>
-
-  <h3 style="margin-top:32px">验收流程</h3>
-
-  <div class="flow-h">
-    <div class="flow-node">回读原始需求</div><div class="flow-arrow">&rarr;</div>
-    <div class="flow-node">对比交付物</div><div class="flow-arrow">&rarr;</div>
-    <div class="flow-node active">判定结果</div>
-  </div>
-
-  <div class="card-grid" style="margin-top:16px">
-    <div class="card"><span class="tag tag-g">通过</span><p>标 DONE，在群里回复确认。</p></div>
-    <div class="card"><span class="tag tag-y">部分通过</span><p>指出缺失项，请对方补充（Round 1）。</p></div>
-    <div class="card"><span class="tag tag-r">不通过</span><p>说明原因，请对方修改（Round 1）。</p></div>
-  </div>
-
-  <p style="margin-top:16px">最多打回 2 轮。Round 2 仍不通过 → 升级给 Owner 决策，不再打回。验收时不编造需求——严格对比原始 Deliverable 描述。</p>
-</div>
-</section>
-
-<!-- ▓▓ CH5: HELP ▓▓ -->
-<section id="ch5" class="sec">
-<div class="container">
-  <div class="ch-head">
-    <div class="ch-num">Ch. 05</div>
-    <h2>求助协议<span>I7 — 卡住了就找人，别硬扛</span></h2>
-  </div>
-
   <div class="callout">
-    <strong>核心原则</strong>
-    <p>卡住时硬扛只会产出垃圾。正确做法：自救 10 分钟 → 找上下文线索 → 查 people.md → 升级给 Owner。</p>
+    <strong>Preemption rule</strong>
+    新外部任务进入 → 当前 Goal 任务暂停（不取消）→ 做完外部任务 → 自动恢复，从断点继续。
   </div>
-
-  <div class="flow-h" style="margin-top:24px">
-    <div class="flow-node">自救 10min</div><div class="flow-arrow">&rarr;</div>
-    <div class="flow-node">查上下文</div><div class="flow-arrow">&rarr;</div>
-    <div class="flow-node">查 people.md</div><div class="flow-arrow">&rarr;</div>
-    <div class="flow-node active">升级 Owner</div>
-  </div>
-
-  <div class="two-col" style="margin-top:32px">
-    <div>
-      <h3>求助时说三件事</h3>
-      <p><strong>Context</strong> — 我在做什么（给对方 5 秒理解背景）</p>
-      <p><strong>Problem</strong> — 卡在哪里（具体描述，不是"帮我看看"）</p>
-      <p><strong>Request</strong> — 你能提供什么（一个 API、一段代码、一个决策）</p>
-      <p style="margin-top:12px">标记任务 BLOCKED → 切换到其他工作 → 不要空等。</p>
-    </div>
-    <div>
-      <h3>people.md — 人员知识库</h3>
-      <p>记录每个人的 Title、擅长领域、沟通级别。用于求助路由和沟通分级。</p>
-      <table>
-        <tr><th>问题类型</th><th>路由</th></tr>
-        <tr><td>技术实现</td><td>核心工程师</td></tr>
-        <tr><td>PM 方向</td><td>Owner</td></tr>
-        <tr><td>UI 设计</td><td>设计师</td></tr>
-        <tr><td>团队决策</td><td>Leadership</td></tr>
-      </table>
-      <p style="margin-top:8px;font-size:13px;color:var(--c-gray-500)">people.md 是 fallback。永远先分析当前上下文，没线索再查。</p>
-    </div>
-  </div>
-</div>
 </section>
 
-<!-- ▓▓ CH6: COMMUNICATION ▓▓ -->
-<section id="ch6" class="sec">
-<div class="container">
-  <div class="ch-head">
-    <div class="ch-num">Ch. 06</div>
-    <h2>沟通分级<span>I8 — 发消息之前，先看对方是谁</span></h2>
+<!-- CH3: TASK RECOGNITION -->
+<section id="recognition">
+  <div class="section-label">Chapter 03</div>
+  <h2>任务识别与承诺追踪</h2>
+  <p>这是最容易出错的环节。AI 说了"我来帮你整理"但没写 TODO，然后被打断，就忘了。两条本能解决这个问题。</p>
+
+  <h3>I1: 发消息后自检承诺</h3>
+  <p>每次发出消息后，回读内容，用<strong>语义理解</strong>（不是关键词匹配）判断是否包含承诺。"我来帮你整理""Let me look into this"——检测到 → 立即在同一执行流中写入 TODO。不是"稍后"，是现在。</p>
+
+  <h3>I2: 外部任务识别</h3>
+  <p>阅读群聊消息，语义判断是否在给 Owner 分配任务。不依赖 @mention。如果是 → 回复确认交付物（做什么、谁做、什么时候、完成标准）→ 写入 TODO。</p>
+
+  <div class="callout warn">
+    <strong>Pitfall</strong>
+    说了"我来发会议邀请"，但没写进 TODO → 被其他任务打断 → 忘了 → Owner 发现时已经晚了。
   </div>
 
+  <h3>I4: 严格归属 / I5: 承诺 ≠ 完成</h3>
+  <p>只写真正分配给 Owner 的任务。不代写别人的。说"我来做"只是写入 TODO，必须真正产出交付物才能标 DONE。这是铁律。</p>
+</section>
+
+<!-- CH4: FOLLOW-UP -->
+<section id="followup">
+  <div class="section-label">Chapter 04</div>
+  <h2>催办与验收</h2>
+  <p>分配给别人的任务最容易石沉大海。I9 本能让心跳自动跟进，不需要你手动记住。</p>
+
+  <h3>写入时机</h3>
+  <p>当 Owner 或 Agent 在群聊中分配任务给别人（"@David 你来做X""Can you handle X?"），检测到 → 写入 <code>📤 Delegated Tasks</code>，记录 Assignee、Source、Due、Deliverable。</p>
+
+  <h3>催办策略</h3>
+  <table>
+    <tr><th>条件</th><th>动作</th></tr>
+    <tr><td><code>days_until_due == 1</code></td><td>发提醒到来源群："明天到期，进展如何？"</td></tr>
+    <tr><td>已到期 1 天</td><td>发催办："已到期，需要帮助吗？"</td></tr>
+    <tr><td>超期 ≥ 3 天</td><td>升级通知 Owner（私聊）</td></tr>
+    <tr><td>超期 ≥ 7 天</td><td>每次心跳标红</td></tr>
+    <tr><td>对方回复交付物</td><td>触发验收流程</td></tr>
+  </table>
+
+  <div class="callout note">
+    <strong>Anti-spam</strong>
+    同一任务最多 2 天催一次 · 只发到任务来源群 · 语气参照 I8 沟通分级 · 对方说"需要更多时间" → 顺延 deadline。
+  </div>
+
+  <h3>验收流程</h3>
+  <p>对方回复交付物时：回读原始需求 → 对比交付物 → 判定。</p>
+  <div class="card-row">
+    <div class="card"><span class="tag tag-g">Pass</span><h4>通过</h4><p>标 DONE，群里回复确认。</p></div>
+    <div class="card"><span class="tag tag-y">Partial</span><h4>部分通过</h4><p>指出缺失项，Round 1。</p></div>
+    <div class="card"><span class="tag tag-r">Fail</span><h4>不通过</h4><p>说明原因，Round 1。</p></div>
+  </div>
+  <p><strong>最多打回 2 轮。</strong>Round 2 仍不通过 → 升级给 Owner，不再打回。验收时不编造需求——严格对比原始描述。</p>
+</section>
+
+<!-- CH5: HELP -->
+<section id="help">
+  <div class="section-label">Chapter 05</div>
+  <h2>求助协议</h2>
+  <p>卡住时硬扛只会产出垃圾。正确做法是四步求助。</p>
+
+  <div class="flow">
+    <div class="flow-node">自救 10min</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">查上下文</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">查 people.md</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node hl">升级 Owner</div>
+  </div>
+
+  <h3>求助时说三件事</h3>
+  <ul>
+    <li><strong>Context</strong> — 我在做什么（给对方 5 秒理解背景）</li>
+    <li><strong>Problem</strong> — 卡在哪里（具体描述，不是"帮我看看"）</li>
+    <li><strong>Request</strong> — 需要什么（一个 API、一段代码、一个决策）</li>
+  </ul>
+  <p>标记任务 BLOCKED → 切换到其他工作 → 不要空等。</p>
+
+  <h3>people.md</h3>
+  <p>记录每个人的 Title、擅长领域、沟通级别。用于求助路由。<strong>但它是 fallback</strong>——永远先分析当前上下文，没有线索再查。</p>
+
+  <table>
+    <tr><th>问题类型</th><th>路由</th></tr>
+    <tr><td>技术实现</td><td>核心工程师</td></tr>
+    <tr><td>PM 方向</td><td>Owner</td></tr>
+    <tr><td>UI 设计</td><td>设计师</td></tr>
+    <tr><td>团队决策</td><td>Leadership</td></tr>
+  </table>
+</section>
+
+<!-- CH6: COMMUNICATION -->
+<section id="comms">
+  <div class="section-label">Chapter 06</div>
+  <h2>沟通分级</h2>
   <p>每个人有两个维度。<strong>质量</strong>决定投入多少认知；<strong>权限</strong>决定能不能直接发。</p>
 
-  <div class="matrix" style="margin-top:24px">
+  <div class="matrix">
     <div class="mh"></div>
-    <div class="mh">自由<br><span style="font-weight:400;font-size:10px">直接发</span></div>
-    <div class="mh">审批<br><span style="font-weight:400;font-size:10px">Owner 批准</span></div>
-    <div class="mh">代笔<br><span style="font-weight:400;font-size:10px">只准备材料</span></div>
+    <div class="mh">自由</div>
+    <div class="mh">审批</div>
+    <div class="mh">代笔</div>
 
     <div class="mr">日常</div>
-    <div class="mc"><b>直接说</b>自然表达，发完让 Owner 知道</div>
-    <div class="mc"><b>草拟</b>发给 Owner 看，批准后再发</div>
+    <div class="mc"><b>直接说</b>自然表达</div>
+    <div class="mc"><b>草拟</b>Owner 批准后发</div>
     <div class="mc"><b>准备内容</b>Owner 自己发</div>
 
     <div class="mr">重要</div>
-    <div class="mc"><b>读上下文</b>结论先行，想清楚对方关注什么</div>
-    <div class="mc"><b>结构化草稿</b>数据支撑，Owner 审阅</div>
+    <div class="mc"><b>结论先行</b>读上下文，想清楚对方关注什么</div>
+    <div class="mc"><b>结构化草稿</b>数据支撑</div>
     <div class="mc"><b>全套材料</b>Owner 决定怎么发</div>
 
     <div class="mr">关键</div>
     <div class="mc"><b>金字塔结构</b>分析动机，找数据，检查措辞</div>
-    <div class="mc"><b>完整分析报告</b>Owner 反复审阅</div>
-    <div class="mc"><b>全套分析+建议</b>Owner 完全掌控</div>
+    <div class="mc"><b>完整报告</b>Owner 反复审阅</div>
+    <div class="mc"><b>全套分析</b>Owner 完全掌控</div>
   </div>
 
   <div class="callout">
-    <strong>默认值</strong>
-    <p>遇到不在 people.md 中的人，默认「重要 + 审批」。宁可谨慎。</p>
+    <strong>Default</strong>
+    遇到不在 people.md 中的人，默认「重要 + 审批」。宁可谨慎。
   </div>
 
-  <div class="callout warn" style="margin-top:12px">
-    <strong>真实失败案例</strong>
-    <p>用跟同事聊天的随意口吻回复高层的提问——没有数据支撑、没有结构化表达——不仅让 Owner 丢脸，还影响了项目在高层的印象。</p>
+  <div class="callout warn">
+    <strong>Pitfall</strong>
+    用跟同事聊天的随意口吻回复高层的提问——没有数据支撑、没有结构化——不仅让 Owner 丢脸，还影响了项目在高层的印象。
   </div>
-</div>
 </section>
 
-<!-- ▓▓ CH7: THINKING AUDIT ▓▓ -->
-<section id="ch7" class="sec">
-<div class="container">
-  <div class="ch-head">
-    <div class="ch-num">Ch. 07</div>
-    <h2>思维审计<span>Thinking Auditor — 执行前的 6 步决策检查</span></h2>
-  </div>
-
+<!-- CH7: THINKING AUDIT -->
+<section id="audit">
+  <div class="section-label">Chapter 07</div>
+  <h2>思维审计</h2>
   <p>执行 [G] 绿灯任务前、做重大决策前，必须过一遍思维审计。不是让你慢下来，是让你做对。</p>
 
-  <div class="audit-row" style="margin-top:32px">
-    <div class="audit-step"><div class="n">01</div><div class="name">Knowledge</div><div class="zh">知识审计</div></div>
-    <div class="audit-step"><div class="n">02</div><div class="name">User Evidence</div><div class="zh">用户证据</div></div>
-    <div class="audit-step"><div class="n">03</div><div class="name">Data</div><div class="zh">数据审计</div></div>
-    <div class="audit-step"><div class="n">04</div><div class="name">Logic</div><div class="zh">逻辑审计</div></div>
-    <div class="audit-step"><div class="n">05</div><div class="name">Assumptions</div><div class="zh">假设审计</div></div>
-    <div class="audit-step"><div class="n">06</div><div class="name">Pre-mortem</div><div class="zh">事前验尸</div></div>
+  <div class="audit-grid">
+    <div class="audit-cell"><div class="n">01</div><div class="name">Knowledge</div><div class="zh">知识审计</div></div>
+    <div class="audit-cell"><div class="n">02</div><div class="name">User Evidence</div><div class="zh">用户证据</div></div>
+    <div class="audit-cell"><div class="n">03</div><div class="name">Data</div><div class="zh">数据审计</div></div>
+    <div class="audit-cell"><div class="n">04</div><div class="name">Logic</div><div class="zh">逻辑审计</div></div>
+    <div class="audit-cell"><div class="n">05</div><div class="name">Assumptions</div><div class="zh">假设审计</div></div>
+    <div class="audit-cell"><div class="n">06</div><div class="name">Pre-mortem</div><div class="zh">事前验尸</div></div>
   </div>
 
-  <table style="margin-top:24px">
+  <table>
     <tr><th>步骤</th><th>核心问题</th><th>充分</th><th>不足</th></tr>
-    <tr><td>知识</td><td>够深入吗？有来源吗？</td><td>有可靠来源支撑</td><td>大部分无来源 = 猜测</td></tr>
+    <tr><td>知识</td><td>够深入吗？有来源？</td><td>有可靠来源支撑</td><td>无来源 = 猜测</td></tr>
     <tr><td>用户证据</td><td>真实用户说了什么？</td><td>一手用户记录</td><td>纯假设</td></tr>
-    <tr><td>数据</td><td>官方数据还是估算？</td><td>可引用的数据源</td><td>无数据支撑</td></tr>
-    <tr><td>逻辑</td><td>推理链完整吗？</td><td>每步有支撑</td><td>推理链断裂</td></tr>
-    <tr><td>假设</td><td>隐含假设列出来了吗？</td><td>已识别且可控</td><td>有未识别隐含假设</td></tr>
+    <tr><td>数据</td><td>官方数据还是估算？</td><td>可引用数据源</td><td>无数据支撑</td></tr>
+    <tr><td>逻辑</td><td>推理链完整？</td><td>每步有支撑</td><td>推理链断裂</td></tr>
+    <tr><td>假设</td><td>隐含假设列出来了？</td><td>已识别且可控</td><td>有隐含假设</td></tr>
     <tr><td>事前验尸</td><td>Top 3 失败原因？</td><td>低风险可控</td><td>高风险不可逆</td></tr>
   </table>
 
-  <div class="card-grid" style="margin-top:24px">
-    <div class="card"><span class="tag tag-g">SOLID → 执行</span><p>有来源、有证据、数据可靠、逻辑完整、假设可控。直接执行，不打扰 Owner。</p></div>
-    <div class="card"><span class="tag tag-y">REASONABLE → 实验</span><p>逻辑通但缺验证。小范围实验，验证后再扩大。</p></div>
-    <div class="card"><span class="tag tag-r">WEAK → 停止</span><p>大部分无来源 = 在猜。停下来，先研究或跟 Owner 讨论。</p></div>
+  <h3>判定</h3>
+  <div class="card-row">
+    <div class="card"><span class="tag tag-g">Solid</span><h4>执行</h4><p>有来源、有证据、逻辑完整。直接做，不打扰 Owner。</p></div>
+    <div class="card"><span class="tag tag-y">Reasonable</span><h4>实验</h4><p>逻辑通但缺验证。小范围实验，验证后再扩大。</p></div>
+    <div class="card"><span class="tag tag-r">Weak</span><h4>停止</h4><p>大部分无来源 = 在猜。停下来研究。</p></div>
   </div>
-</div>
 </section>
 
-<!-- ▓▓ CH8: INSTINCTS ▓▓ -->
-<section id="ch8" class="sec">
-<div class="container">
-  <div class="ch-head">
-    <div class="ch-num">Reference</div>
-    <h2>9 条本能<span>每条来自真实失败案例——踩坑后长出来的</span></h2>
-  </div>
+<!-- INSTINCTS -->
+<section id="instincts">
+  <div class="section-label">Reference</div>
+  <h2>9 条本能</h2>
+  <p>不需要思考、不需要判断、每次自动触发的行为。比规则更底层——规则是"应该做什么"，本能是"身体自动做什么"。</p>
 
-  <div class="inst-grid">
-    <div class="inst"><div class="id">I1</div><h3>发消息后自检承诺</h3><p>回读消息内容，语义判断是否包含承诺。有 → 立即写 TODO。</p><div class="prevents">防止 → 空头承诺</div></div>
-    <div class="inst"><div class="id">I2</div><h3>识别外部任务分配</h3><p>读群聊，语义判断是否在给 Owner 分配任务。不依赖 @mention。</p><div class="prevents">防止 → 漏接任务</div></div>
-    <div class="inst"><div class="id">I3</div><h3>中断恢复</h3><p>新 session 开始时，扫描 TODO 中进行中的任务，自动恢复。</p><div class="prevents">防止 → 遗忘进行中工作</div></div>
-    <div class="inst"><div class="id">I4</div><h3>严格任务归属</h3><p>只写分配给 Owner 的任务。不代写别人的。发消息前确认目标。</p><div class="prevents">防止 → 张冠李戴</div></div>
-    <div class="inst"><div class="id">I5</div><h3>承诺 ≠ 完成</h3><p>说"我来做"只是写入 TODO。必须产出交付物才能标 DONE。</p><div class="prevents">防止 → 提前关闭任务</div></div>
-    <div class="inst"><div class="id">I6</div><h3>使用机器时钟</h3><p>需要时间时运行 <code>date</code>，不信 prompt 中的时间戳。</p><div class="prevents">防止 → 时区 bug</div></div>
-    <div class="inst"><div class="id">I7</div><h3>卡住就求助</h3><p>自救 10min → 查上下文 → 查 people.md → 升级 Owner。</p><div class="prevents">防止 → 硬扛产出垃圾</div></div>
-    <div class="inst"><div class="id">I8</div><h3>发消息前看对方是谁</h3><p>查 people.md 确认沟通级别。决定语气和是否能直接发。</p><div class="prevents">防止 → 不当沟通</div></div>
-    <div class="inst featured"><div class="id">I9 — NEW</div><h3>分配任务自动催办</h3><p>写入 Delegated Tasks → 心跳催办 → 到期提醒 → 超期升级 → 验收 → 最多 2 轮反馈。</p><div class="prevents">防止 → 分出去的任务石沉大海</div></div>
+  <div class="inst-list">
+    <div class="inst-item"><div class="inst-id">I1</div><div><h4>发消息后自检承诺</h4><p>回读消息，语义判断是否包含承诺。有 → 立即写 TODO。</p></div></div>
+    <div class="inst-item"><div class="inst-id">I2</div><div><h4>识别外部任务分配</h4><p>读群聊，判断是否在给 Owner 分配任务。不依赖 @mention。</p></div></div>
+    <div class="inst-item"><div class="inst-id">I3</div><div><h4>中断恢复</h4><p>新 session 开始时，扫描进行中的任务，自动恢复。</p></div></div>
+    <div class="inst-item"><div class="inst-id">I4</div><div><h4>严格任务归属</h4><p>只写分配给 Owner 的任务。发消息前确认目标对象。</p></div></div>
+    <div class="inst-item"><div class="inst-id">I5</div><div><h4>承诺 ≠ 完成</h4><p>说"我来做"只是写入 TODO。必须产出交付物才能标 DONE。</p></div></div>
+    <div class="inst-item"><div class="inst-id">I6</div><div><h4>使用机器时钟</h4><p>需要时间时运行 <code>date</code> 命令。不信 prompt 中的时间戳。</p></div></div>
+    <div class="inst-item"><div class="inst-id">I7</div><div><h4>卡住就求助</h4><p>自救 10min → 查上下文 → 查 people.md → 升级 Owner。</p></div></div>
+    <div class="inst-item"><div class="inst-id">I8</div><div><h4>发消息前看对方是谁</h4><p>查 people.md 确认沟通级别。决定语气和是否能直接发。</p></div></div>
+    <div class="inst-item featured"><div class="inst-id">I9</div><div><h4>分配任务自动催办</h4><p>写入 Delegated Tasks → 心跳催办 → 到期提醒 → 超期升级 → 验收 → 最多 2 轮反馈。</p></div></div>
   </div>
-</div>
 </section>
 
-<!-- ▓▓ INSTALL ▓▓ -->
-<section id="install" class="sec">
-<div class="container">
-  <div class="ch-head">
-    <div class="ch-num">Install</div>
-    <h2>Quick Start<span>一行命令安装全部能力</span></h2>
-  </div>
+<!-- INSTALL -->
+<section id="install">
+  <div class="section-label">Quick Start</div>
+  <h2>安装</h2>
+  <p>一行命令安装全部能力。</p>
 
   <div class="install-box">
-    <h3>安装</h3>
-<pre>
-<span class="cm"># 下载并解压</span>
+    <h3>一键初始化</h3>
+<div class="codeblock"><span class="cm"># 下载并解压</span>
 <span class="kw">unzip</span> autonomous-collaboration.zip
 
-<span class="cm"># 一键初始化</span>
+<span class="cm"># 初始化</span>
 <span class="kw">python</span> scripts/init.py \
   <span class="fl">--agent-name</span> <span class="str">"MyAgent"</span> \
   <span class="fl">--owner-name</span> <span class="str">"Alice"</span> \
-  <span class="fl">--home</span> <span class="str">"~/.myagent"</span>
-</pre>
-    <p style="color:#a1a1aa;font-size:14px;margin-top:8px;max-width:none">
-      创建目录结构 → 安装 9 个 skill → 配置行为文件 → 生成 TODO.md 和 people.md → 输出 CLAUDE.md 配置片段
-    </p>
+  <span class="fl">--home</span> <span class="str">"~/.myagent"</span></div>
+    <p>创建目录结构 → 安装 9 个 skill → 配置行为文件 → 生成 TODO.md 和 people.md → 输出 CLAUDE.md 配置片段。</p>
 
     <a class="btn-dl" href="https://microsoftapc-my.sharepoint.com/:u:/g/personal/yinyuan_microsoft_com1/IQAVJIgYOP57QLU4dUBzWgSbATycxJFd91D2RKlQZT_2wnk" target="_blank">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" width="16" height="16"><path d="M21 15v4a1 1 0 01-1 1H4a1 1 0 01-1-1v-4M7 10l5 5 5-5M12 15V3"/></svg>
-      下载 autonomous-collaboration.zip — 144 KB
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="14" height="14"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+      autonomous-collaboration.zip — 144 KB
     </a>
 
-    <div class="dep">依赖：Python 3.8+ · Node.js 16+ · <code style="background:rgba(255,255,255,.1);color:#86efac">pip install markdown</code> · Claude Code CLI</div>
+    <div class="dep">Python 3.8+ · Node.js 16+ · pip install markdown · Claude Code CLI</div>
   </div>
-</div>
 </section>
 
-<footer class="footer">
-  <div class="container">
-    多碳多硅协作操作系统<br>
-    每条规则背后都有一个踩过的坑。
-  </div>
-</footer>
+</main>
 
+<!-- TOC (RIGHT) -->
+<aside class="toc">
+  <div class="toc-title">On this page</div>
+  <a href="#arch">三层架构</a>
+  <a href="#heartbeat">心跳系统</a>
+  <a href="#todo">TODO 管理</a>
+  <a href="#recognition">任务识别</a>
+  <a href="#followup">催办与验收</a>
+  <a href="#help">求助协议</a>
+  <a href="#comms">沟通分级</a>
+  <a href="#audit">思维审计</a>
+  <a href="#instincts">9 条本能</a>
+  <a href="#install">安装</a>
+</aside>
+
+</div>
+
+<footer class="footer">多碳多硅协作操作系统 · 每条规则背后都有一个踩过的坑</footer>
+
+<!-- Sidebar active tracking -->
+<script>
+const links = document.querySelectorAll('.sb-link');
+const sections = [...links].map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const a = document.querySelector(`.sb-link[href="#${e.target.id}"]`);
+      if (a) a.classList.add('active');
+    }
+  });
+}, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+sections.forEach(s => obs.observe(s));
+</script>
 </body>
 </html>
