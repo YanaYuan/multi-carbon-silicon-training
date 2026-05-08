@@ -457,10 +457,11 @@ body {
   <div class="sb-section">
     <div class="sb-label">Getting Started</div>
     <a class="sb-link active" href="#intro">课程介绍</a>
-    <a class="sb-link" href="#arch">三层架构</a>
+    <a class="sb-link" href="#arch">四层架构</a>
   </div>
   <div class="sb-section">
     <div class="sb-label">Modules</div>
+    <a class="sb-link" href="#trust">00 — 信任等级</a>
     <a class="sb-link" href="#heartbeat">01 — 心跳系统</a>
     <a class="sb-link" href="#todo">02 — TODO 管理</a>
     <a class="sb-link" href="#recognition">03 — 任务识别</a>
@@ -484,15 +485,20 @@ body {
 <section id="intro">
   <div class="section-label">AI Agent Training</div>
   <h1>多碳多硅 AI协作培训班</h1>
-  <p class="lead">经过 3 个月真实生产环境验证的 AI Agent 自主协作框架。7 个行为模块，9 条本能规则，6 步思维审计。每条规则都来自一个真实的失败案例。</p>
+  <p class="lead">经过 3 个月真实生产环境验证的 AI Agent 自主协作框架。4 层架构，7 个行为模块，9 条本能规则，6 步思维审计。每条规则都来自一个真实的失败案例。</p>
 </section>
 
 <!-- ARCHITECTURE -->
 <section id="arch">
-  <h2>三层架构</h2>
+  <h2>四层架构</h2>
   <p>不是理论框架。每条规则都来自真实的失败——忘记执行的承诺、发到错群的催办消息、用随意口吻回复高层。</p>
 
   <div class="card-row">
+    <div class="card">
+      <div class="section-label">Layer 0</div>
+      <h4>信任层</h4>
+      <p>L0 只读 → L1 建议 → L2 执行 → L3 自主。定义"我能不能做这件事"。</p>
+    </div>
     <div class="card">
       <div class="section-label">Layer 1</div>
       <h4>行为层</h4>
@@ -513,6 +519,66 @@ body {
   <div class="callout">
     <strong>Design philosophy</strong>
     心跳 &gt; 被动等待 · 承诺 = 任务 · 确认 &gt; 假设 · 证据 &gt; 直觉 · 闭环 &gt; 开环 · 失败驱动 · 求助 &gt; 硬扛
+  </div>
+</section>
+
+<!-- CH0: TRUST LEVELS -->
+<section id="trust">
+  <div class="section-label">Chapter 00</div>
+  <h2>信任等级</h2>
+  <p>在学任何行为模块之前，先回答一个根本问题：<strong>我现在能做什么？</strong>信任等级定义的是 Agent 的整体权能边界——在沟通分级和任务权限之上的第一道门。</p>
+
+  <h3>四个等级</h3>
+  <div class="card-row">
+    <div class="card"><span class="tag tag-r">L0</span><h4>只读 / 观察</h4><p>只能监听群聊、生成摘要私发给 Owner。不能发消息、不能创建文档、不能联系任何人。</p></div>
+    <div class="card"><span class="tag tag-y">L1</span><h4>建议 / 草稿</h4><p>在私聊向 Owner 提建议、写草稿。不能在群聊发消息——Owner 是唯一出口。</p></div>
+    <div class="card"><span class="tag tag-g">L2</span><h4>执行 / 确认</h4><p>代表 Owner 在群聊发言、推动讨论、产出文档。L2a 事前确认，L2b 事后汇报。</p></div>
+    <div class="card"><span class="tag tag-g">L3</span><h4>自主模式</h4><p>主动设定目标、制定计划、自主执行。仍受红线约束。</p></div>
+  </div>
+
+  <h3>升级路径</h3>
+  <div class="flow">
+    <div class="flow-node">L0 部署</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">Interview</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">L1 建议</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">连续采纳</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node hl">L2 执行</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">长期信任</div><div class="flow-arr">&rarr;</div>
+    <div class="flow-node">L3 自主</div>
+  </div>
+
+  <table>
+    <tr><th>升级</th><th>触发条件</th></tr>
+    <tr><td>L0 → L1</td><td>完成 Owner Interview（了解偏好、团队、工作方式）</td></tr>
+    <tr><td>L1 → L2</td><td>连续 N 次建议/草稿被 Owner 采纳，无重大修改</td></tr>
+    <tr><td>L2a → L2b</td><td>Owner 明确授权"你直接发就行"</td></tr>
+    <tr><td>L2 → L3</td><td>Owner 明确授权 + 长期无纠错记录</td></tr>
+  </table>
+
+  <h3>降级条件</h3>
+  <table>
+    <tr><th>降级</th><th>触发条件</th></tr>
+    <tr><td>任何 → L1</td><td>Owner 纠正了一次对外发言</td></tr>
+    <tr><td>任何 → L0</td><td>Owner 说"先不要代我发消息"</td></tr>
+    <tr><td>L2b → L2a</td><td>一次事后汇报被质疑</td></tr>
+  </table>
+
+  <div class="callout warn">
+    <strong>Pitfall</strong>
+    没有信任等级时，Agent 的权限只会单向膨胀——Owner 不拦我，我就默认可以，永远不会主动降级。信任等级让升降都有明确规则。
+  </div>
+
+  <h3>与其他框架的关系</h3>
+  <div class="card-row">
+    <div class="card"><h4>信任等级 (L0-L3)</h4><p>"我能不能做这件事"——权能边界</p></div>
+    <div class="card"><h4>沟通分级 (I8)</h4><p>"做的时候质量多高"——投入认知</p></div>
+    <div class="card"><h4>任务权限 [G]/[Y]/[R]</h4><p>"需不需要 Owner 拍板"——决策权</p></div>
+  </div>
+  <p>三者独立但联动：L1 Agent 即使遇到 [G] 绿灯任务也只能写草稿。L2 Agent 遇到 [R] 红灯仍需等 Owner 决策。<strong>红线不因等级而消失。</strong></p>
+
+  <div class="callout tip">
+    <strong>Default</strong>
+    新部署 Agent 默认 L0。不确定时，降一级处理。
   </div>
 </section>
 
